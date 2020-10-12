@@ -20,6 +20,7 @@ public class LoginActivity extends AppCompatActivity {
         final EditText password = findViewById(R.id.password);
 
         Button login = findViewById(R.id.login);
+        Button register = findViewById(R.id.register);
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -29,10 +30,17 @@ public class LoginActivity extends AppCompatActivity {
                                 "Password" + password.getText().toString(),
                         Toast.LENGTH_SHORT).show();
 username.setError(null);
-                if (!Validation.isValidCredentials(username.getText().toString())) {
-username.setError("Klaida! Patikrinkite duomenis");
-username.requestFocus();
-                } else { //jeigu duomenys teisingi
+                if (!Validation.isValidusername(username.getText().toString())) {
+                    username.setError("Klaida! Patikrinkite vardą");
+                    username.requestFocus();
+                }
+                 else if (!Validation.isValidpassword(password.getText().toString())) {
+                    password.setError("Klaida! Patikrinkite slaptažodį");
+                    password.requestFocus();
+                }
+
+
+                 else { //jeigu duomenys teisingi
                     Intent goToSearchActivity = new Intent(LoginActivity.this, SearchActivity.class);
                     startActivity(goToSearchActivity);
                 }
@@ -41,5 +49,14 @@ username.requestFocus();
             }
         })
 ;
+
+register.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+        Intent goToRegisterActivity = new Intent(LoginActivity.this, RegisterActivity.class);
+        startActivity(goToRegisterActivity);
+    }
+});
+
     }
 }
